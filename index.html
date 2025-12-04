@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Booksy Library System Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-color: #f5f5f5;
+        --card-color: #ffffff;
+        --text-color: #222;
+        --input-color: #eee;
+    }
+
+    body.dark {
+        --bg-color: #1e1e1e;
+        --card-color: #2c2c2c;
+        --text-color: #f5f5f5;
+        --input-color: #3a3a3a;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: var(--bg-color);
+        transition: 0.3s;
+    }
+
+    .container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .login-card {
+        width: 380px;
+        background: var(--card-color);
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: 0.3s;
+    }
+
+    .login-card h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: var(--text-color);
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group label {
+        color: var(--text-color);
+        font-size: 14px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        margin-top: 6px;
+        background: var(--input-color);
+        color: var(--text-color);
+        transition: 0.3s;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #4a90e2;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #357ac8;
+    }
+
+    .toggle-theme {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 26px;
+        cursor: pointer;
+        color: var(--text-color);
+        transition: 0.3s;
+    }
+
+    .error-msg {
+        display: none;
+        background: #ffdddd;
+        color: #b10000;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 480px) {
+        .login-card {
+            width: 100%;
+            padding: 25px;
+            border-radius: 12px;
+        }
+        .toggle-theme {
+            top: 10px;
+            right: 10px;
+            font-size: 22px;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="toggle-theme" id="themeToggle">🌙</div>
+<div class="container">
+    <div class="login-card">
+        <h2>Welcome to Booksy Library System Login</h2>
+        <div class="error-msg" id="errorMsg">Invalid username or password!</div>
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" id="username" placeholder="Enter username">
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Enter password">
+        </div>
+        <button onclick="login()">Login</button>
+    </div>
+</div>
+<script>
+const toggle = document.getElementById("themeToggle");
+toggle.onclick = () => {
+    document.body.classList.toggle("dark");
+    toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+};
+
+function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    let errorMsg = document.getElementById("errorMsg");
+    if (username === "admin" && password === "1234") {
+        window.location.href = "dashboard.html";
+    } else {
+        errorMsg.style.display = "block";
+        setTimeout(() => { errorMsg.style.display = "none"; }, 3000);
+    }
+}
+</script>
+</body>
+</html>

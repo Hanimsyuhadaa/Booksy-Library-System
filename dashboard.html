@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard • Library System</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root {
+    --bg-color: #f9fafb;
+    --text-color: #222;
+    --card-bg: #ffffff;
+    --sidebar-bg: #ffffff;
+    --accent1: #ff8a80;
+    --accent2: #82b1ff;
+    --accent3: #b388ff;
+    --accent4: #80d8ff;
+}
+
+body.dark {
+    --bg-color: #1e1e1e;
+    --text-color: #f5f5f5;
+    --card-bg: #2c2c2c;
+    --sidebar-bg: #252525;
+    --accent1: #ff5252;
+    --accent2: #448aff;
+    --accent3: #7c4dff;
+    --accent4: #18ffff;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    transition: 0.3s;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: var(--sidebar-bg);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px 20px;
+    box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 35px;
+    color: var(--text-color);
+}
+
+.sidebar a.menu-item {
+    display: block;
+    padding: 14px 18px;
+    margin: 10px 0;
+    border-radius: 10px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.sidebar a.menu-item:hover, .sidebar a.menu-item.active {
+    background: #82b1ff;
+    color: white;
+}
+
+/* MAIN CONTENT */
+.main {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 30px;
+    background: var(--card-bg);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--text-color);
+}
+
+header p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.theme-toggle {
+    cursor: pointer;
+    font-size: 22px;
+}
+
+/* CARDS */
+.content {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.card-dashboard {
+    padding: 25px;
+    border-radius: 20px;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card-dashboard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 5px 18px rgba(0,0,0,0.15);
+}
+
+.c1 { background: var(--accent1); }
+.c2 { background: var(--accent2); }
+.c3 { background: var(--accent3); }
+.c4 { background: var(--accent4); }
+
+/* CHARTS */
+.charts {
+    padding: 30px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px;
+}
+
+.chart-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.chart-card h3 {
+    margin-bottom: 15px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+        padding: 20px 10px;
+    }
+    .sidebar h2 { display: none; }
+    .sidebar a.menu-item { padding: 10px 8px; font-size: 14px; }
+    .main { margin-left: 60px; width: calc(100% - 60px); }
+    .content { padding: 20px; grid-template-columns: 1fr; gap: 20px; }
+    .charts { padding: 20px; grid-template-columns: 1fr; gap: 20px; }
+    header h1 { font-size: 18px; }
+    .theme-toggle { font-size: 20px; }
+
+    /* MOBILE HEADER FIX */
+    header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    header div {
+        flex: 1 1 100%;
+    }
+    .theme-toggle {
+        flex: 0 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-dashboard { font-size: 16px; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>📚 Booksy</h2>
+    <a class="menu-item active" href="dashboard.html">🏠 Dashboard</a>
+    <a class="menu-item" href="book.html">📖 Books</a>
+    <a class="menu-item" href="users.html">👥 Users</a>
+    <a class="menu-item" href="profile.html">🙍‍♀️ Profile</a>
+    <a class="menu-item text-danger" href="index.html">🚪 Logout</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+<header>
+    <div>
+        <h1>Dashboard Overview</h1>
+        <p>
+           This Booksy Library Management Website helps users and librarians access and manage library resources easily. Users can search for books, check availability, reserve titles, and view their borrowing history. The system brings key library tasks into one platform for smoother and more efficient daily operations.
+        </p>
+    </div>
+    <span class="theme-toggle" id="themeToggle">🌙</span>
+</header>
+
+<div class="content">
+    <div class="card-dashboard c1">📘 Total Books</div>
+    <div class="card-dashboard c2">👥 Total Users</div>
+    <div class="card-dashboard c3">📊 Today Borrowed</div>
+    <div class="card-dashboard c4">📅 Monthly Stats</div>
+</div>
+
+<div class="charts">
+    <div class="chart-card">
+        <h3>Books Borrowed (Monthly)</h3>
+        <canvas id="barChart"></canvas>
+    </div>
+    <div class="chart-card">
+        <h3>Book Categories</h3>
+        <canvas id="pieChart"></canvas>
+    </div>
+</div>
+
+<footer>Library Management System •</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+if(localStorage.getItem("theme") === "dark"){
+    document.body.classList.add("dark");
+    document.getElementById("themeToggle").textContent = "☀️";
+}
+document.getElementById("themeToggle").onclick = () => {
+    document.body.classList.toggle("dark");
+    if(document.body.classList.contains("dark")){
+        localStorage.setItem("theme","dark");
+        document.getElementById("themeToggle").textContent="☀️";
+    }else{
+        localStorage.setItem("theme","light");
+        document.getElementById("themeToggle").textContent="🌙";
+    }
+};
+
+// Charts
+new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+        datasets: [{label:'Books Borrowed',data:[40,55,60,35,80,65],backgroundColor:['#ff8a80','#82b1ff','#b388ff','#80d8ff','#ff8a80','#82b1ff'],borderRadius:8}]
+    },
+    options: {plugins:{legend:{display:false}}}
+});
+
+new Chart(document.getElementById('pieChart'), {
+    type:'pie',
+    data:{
+        labels:['Fiction','Science','History','Education','Comics'],
+        datasets:[{data:[25,18,20,15,22],backgroundColor:['#ff8a80','#82b1ff','#b388ff','#80d8ff','#ffd180']}]
+    }
+});
+</script>
+</body>
+</html>

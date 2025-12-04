@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile • Library System</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg-color: #f9fafb;
+    --text-color: #222;
+    --card-bg: #ffffff;
+}
+
+body.dark {
+    --bg-color: #1e1e1e;
+    --text-color: #f5f5f5;
+    --card-bg: #2c2c2c;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    transition: 0.3s;
+    margin: 0;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: var(--card-bg);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px 20px;
+    box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 35px;
+}
+
+.sidebar a.menu-item {
+    display: block;
+    padding: 14px 18px;
+    margin: 10px 0;
+    border-radius: 10px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.sidebar a.menu-item:hover, .sidebar a.menu-item.active {
+    background: #82b1ff;
+    color: white;
+}
+
+/* MAIN CONTENT */
+.main {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    padding-bottom: 50px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 30px;
+    background: var(--card-bg);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--text-color);
+}
+
+.theme-toggle {
+    cursor: pointer;
+    font-size: 22px;
+}
+
+/* Profile Card */
+.profile-card {
+    margin: 40px;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.profile-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-block img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #82b1ff;
+}
+
+.profile-block .profile-info {
+    text-align: center;
+}
+
+.profile-block .profile-info h2 {
+    margin: 0 0 8px 0;
+}
+
+.profile-block .profile-info p {
+    margin: 4px 0;
+    color: gray;
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .sidebar { width: 60px; padding: 20px 8px; }
+    .sidebar h2 { display: none; }
+    .sidebar a.menu-item { padding: 10px 6px; font-size: 14px; }
+    .main { margin-left: 60px; width: calc(100% - 60px); }
+    .profile-card { flex-direction: column; text-align: center; padding: 20px; margin: 20px; }
+    .profile-block img { width: 120px; height: 120px; }
+    .profile-block .profile-info h2 { font-size: 16px; }
+    .profile-block .profile-info p { font-size: 13px; }
+    header h1 { font-size: 18px; }
+    .theme-toggle { font-size: 20px; }
+}
+@media (max-width: 480px) {
+    .profile-block img { width: 100px; height: 100px; }
+    .profile-block .profile-info h2 { font-size: 14px; }
+    .profile-block .profile-info p { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>📚 Booksy</h2>
+    <a class="menu-item" href="dashboard.html">🏠 Dashboard</a>
+    <a class="menu-item" href="book.html">📖 Books</a>
+    <a class="menu-item" href="users.html">👥 Users</a>
+    <a class="menu-item active" href="profile.html">🙍‍♀️ Profile</a>
+    <a class="menu-item text-danger" href="index.html">🚪 Logout</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+<header>
+    <h1>My Profile</h1>
+    <span class="theme-toggle" id="themeToggle">🌙</span>
+</header>
+
+<div class="profile-card">
+    <!-- Gambar & info utama -->
+    <div class="profile-block">
+        <img src="images/profile.jpg" alt="Profile Picture">
+        <div class="profile-info">
+            <h2>Nurul Hanim Syuhada</h2>
+            <p><strong>Username:</strong> nurul</p>
+            <p><strong>Email:</strong> nurul@gmail.com</p>
+            <p><strong>Role:</strong> Admin</p>
+            <p><strong>Status:</strong> Active</p>
+        </div>
+    </div>
+
+    <!-- Gambar & info kedua -->
+    <div class="profile-block">
+        <img src="images/certificate.jpg" alt="Certificate">
+        <div class="profile-info">
+            <h2>Nurqurratu'Aini</h2>
+            <p><strong>Username:</strong> aini</p>
+            <p><strong>Email:</strong> aini@gmail.com</p>
+            <p><strong>Role:</strong> Admin</p>
+            <p><strong>Status:</strong> Active</p>
+        </div>
+    </div>
+</div>
+
+<footer>Library Management System •</footer>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Dark/Light mode
+if(localStorage.getItem("theme")==="dark"){
+    document.body.classList.add("dark");
+    document.getElementById("themeToggle").textContent="☀️";
+}
+
+document.getElementById("themeToggle").onclick = () => {
+    document.body.classList.toggle("dark");
+    if(document.body.classList.contains("dark")){
+        localStorage.setItem("theme","dark");
+        document.getElementById("themeToggle").textContent="☀️";
+    }else{
+        localStorage.setItem("theme","light");
+        document.getElementById("themeToggle").textContent="🌙";
+    }
+};
+</script>
+
+</body>
+</html>

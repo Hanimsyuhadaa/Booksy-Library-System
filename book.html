@@ -1,0 +1,224 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Books • Library System</title>
+
+<!-- BOOTSTRAP CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root {
+    --bg-color: #f9fafb;
+    --text-color: #222;
+    --card-bg: #ffffff;
+}
+body.dark {
+    --bg-color: #1e1e1e;
+    --text-color: #f5f5f5;
+    --card-bg: #2b2b2b;
+}
+body {
+    font-family:"Poppins",sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    display:flex;
+    transition:0.3s;
+    margin:0;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width:240px;
+    background: var(--card-bg);
+    height:100vh;
+    position:fixed;
+    top:0;
+    left:0;
+    padding:30px 20px;
+    box-shadow:3px 0 10px rgba(0,0,0,0.1);
+}
+.sidebar h2 { text-align:center; color:var(--text-color); margin-bottom:35px;}
+.sidebar a.menu-item { display:block; padding:14px 18px; margin:10px 0; border-radius:10px; color:var(--text-color); text-decoration:none; transition:0.2s;}
+.sidebar a.menu-item:hover, .sidebar a.menu-item.active { background:#82b1ff; color:white;}
+
+/* MAIN */
+.main { 
+    margin-left:260px; 
+    width:calc(100% - 260px); 
+    padding-bottom:50px;
+}
+
+/* HEADER */
+header { 
+    display:flex; 
+    justify-content:space-between; 
+    align-items:center; 
+    padding:18px 30px; 
+    background:var(--card-bg); 
+    box-shadow:0 3px 10px rgba(0,0,0,0.1); 
+    position:sticky; 
+    top:0; 
+    z-index:10; 
+    width:100%; 
+    box-sizing:border-box; 
+}
+header h1 { margin:0; font-size:22px; flex:1; }
+.theme-toggle { cursor:pointer; font-size:22px; }
+
+/* SEARCH */
+.search-bar { margin:20px 30px; display:flex; gap:10px; }
+.search-bar input { flex:1; padding:10px 15px; border-radius:8px; border:1px solid #ccc; }
+.search-bar button { padding:10px 20px; border:none; border-radius:8px; background:#82b1ff; color:white; cursor:pointer; transition:0.2s; }
+.search-bar button:hover { background:#5a92e0; }
+
+/* BOOK GRID */
+.book-section { padding:30px; }
+.book-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:25px; }
+.book-card { border-radius:12px; background:var(--card-bg); padding:15px; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.1); transition:0.3s; }
+.book-card:hover { transform:translateY(-5px); }
+.book-card img { width:100%; height:220px; object-fit:cover; border-radius:10px; }
+.book-card h5 { margin-top:12px; color:var(--text-color); }
+.book-card p { font-size:14px; color:gray; }
+
+/* INFO CARDS */
+.info-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:20px; padding:0 30px; margin-bottom:30px; }
+.info-card { background:var(--card-bg); padding:20px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.08); text-align:center; }
+.info-card h4 { margin-bottom:8px; }
+.info-card p { margin:0; font-size:14px; color:gray; }
+
+/* CHART */
+.chart-card { margin:30px; background:var(--card-bg); padding:25px; border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.08); }
+.chart-card h3 { text-align:center; margin-bottom:15px; color:var(--text-color); }
+
+footer { padding:20px; text-align:center; font-size:14px; color:var(--text-color); margin-top:30px; }
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .sidebar { width: 60px; padding: 20px 8px; }
+    .sidebar h2 { display:none; }
+    .sidebar a.menu-item { padding: 10px 6px; font-size:14px; }
+    .main { margin-left:60px; width:calc(100% - 60px); }
+    .book-section { padding:20px; }
+    .book-grid { grid-template-columns:1fr; gap:20px; }
+    .chart-card { margin:20px; padding:20px; }
+    .search-bar { margin:15px 20px; flex-direction:column; gap:10px; }
+    header h1 { font-size:18px; }
+    .theme-toggle { font-size:20px; }
+}
+@media (max-width: 480px) {
+    .book-card img { height:180px; }
+    .book-card h5 { font-size:16px; }
+    .book-card p { font-size:13px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>📚 Booksy</h2>
+<a class="menu-item" href="dashboard.html">🏠 Dashboard</a>
+<a class="menu-item active" href="book.html">📖 Books</a>
+<a class="menu-item" href="users.html">👥 Users</a>
+<a class="menu-item" href="profile.html">🙍‍♀️ Profile</a>
+<a class="menu-item text-danger" href="index.html">🚪 Logout</a>
+</div>
+
+<div class="main">
+<header>
+<h1>Trending Books</h1>
+<span class="theme-toggle" id="themeToggle">🌙</span>
+</header>
+
+<!-- SEARCH BAR -->
+<div class="search-bar">
+<input type="text" placeholder="Search for books...">
+<button>Search</button>
+</div>
+
+<!-- INFO CARDS -->
+<div class="info-cards">
+<div class="info-card">
+<h4>📘 Total Books</h4>
+<p>1200+ books available</p>
+</div>
+<div class="info-card">
+<h4>🔥 Most Borrowed</h4>
+<p>"Atomic Habits" by James Clear</p>
+</div>
+<div class="info-card">
+<h4>🆕 New Arrivals</h4>
+<p>20 new titles this month</p>
+</div>
+</div>
+
+<div class="book-section">
+<h2 style="margin-bottom:20px;">📚 Latest Popular Books</h2>
+<div class="book-grid">
+<div class="book-card">
+<img src="https://m.media-amazon.com/images/I/81gepf1eMqL._AC_UF1000,1000_QL80_.jpg" alt="Book">
+<h5>The Psychology of Money</h5>
+<p>Morgan Housel</p>
+</div>
+<div class="book-card">
+<img src="https://m.media-amazon.com/images/I/71aFt4+OTOL.jpg" alt="Book">
+<h5>The Alchemist</h5>
+<p>Paulo Coelho</p>
+</div>
+<div class="book-card">
+<img src="https://m.media-amazon.com/images/I/81WcnNQ-TBL.jpg" alt="Book">
+<h5>Atomic Habits</h5>
+<p>James Clear</p>
+</div>
+<div class="book-card">
+<img src="https://m.media-amazon.com/images/I/81vpsIs58WL.jpg" alt="Book">
+<h5>It Ends With Us</h5>
+<p>Colleen Hoover</p>
+</div>
+</div>
+</div>
+
+<!-- CHART -->
+<div class="chart-card">
+<h3>📊 Book Category Distribution</h3>
+<canvas id="bookPieChart" height="140"></canvas>
+</div>
+
+<footer>Library Management System •</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Dark/Light mode
+if(localStorage.getItem("theme")==="dark"){
+    document.body.classList.add("dark");
+    document.getElementById("themeToggle").textContent="☀️";
+}
+
+document.getElementById("themeToggle").onclick=()=>{
+    document.body.classList.toggle("dark");
+    if(document.body.classList.contains("dark")){
+        localStorage.setItem("theme","dark");
+        document.getElementById("themeToggle").textContent="☀️";
+    }else{
+        localStorage.setItem("theme","light");
+        document.getElementById("themeToggle").textContent="🌙";
+    }
+};
+
+// Pie chart
+new Chart(document.getElementById("bookPieChart"),{
+type:"pie",
+data:{
+labels:["Fiction","Non-Fiction","Romance","Self-Help","Fantasy"],
+datasets:[{data:[30,25,15,20,10],backgroundColor:['#ff8a80','#82b1ff','#b388ff','#80d8ff','#ffd180']}]
+}
+});
+</script>
+
+</body>
+</html>
