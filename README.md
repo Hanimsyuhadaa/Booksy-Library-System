@@ -19,9 +19,10 @@ This Library Management Website helps users and librarians access and manage lib
 USERNAME: admin
 PASSWORD: 1234
 
-##FRAMEWORK/LIBARIES USED
+##FRAMEWORK/LIBRARIES USED
 
 The Booksy Library System is built using the following technologies:
+
 - HTML5 – For structuring all web pages and system interfaces.
 - CSS3 – For styling, layout design, and overall visual appearance.
 - JavaScript – For interactive features and client-side functionality.
