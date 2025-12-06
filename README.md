@@ -12,7 +12,7 @@ This Library Management Website helps users and librarians access and manage lib
 - PROFILE PAGES
 - LOG OUT
 
-##Log in page
+##INSTRUCTION TO TEST LOGIN
 
 USERNAME: admin
 PASSWORD: 1234
